@@ -1,0 +1,186 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+import matplotlib.patches as patches
+from datetime import timedelta, datetime
+
+Planets = ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']
+dot_color = ['red', 'gray', 'orange', 'blue', 'pink', 'brown', 'yellow', 'cyan', 'blue']
+
+def create_animation_earth_rotation_adjusted(fig, ax, adjusted_phis_all_deg, thetas_all_deg, time_steps, latitude_obs, start_date):
+    def update_plot_earth_rotation_adjusted(frame):
+        ax.clear()
+
+        # Recreate the semi-circle representing the sky
+        sky = patches.Circle((0, 0), 1, color='lightblue', alpha=0.3, clip_on=False)
+        ax.add_patch(sky)
+
+        # Set the limits and labels
+        ax.set_xlim(-1, 1)
+        ax.set_ylim(0, 1)
+        ax.set_xlabel('Azimuthal Angle (Degrees)')
+        ax.set_ylabel('Altitude')
+
+        # Calculate the current time in the simulation
+        current_simulation_time = timedelta(seconds=frame * time_step_duration)
+        current_datetime = start_date + current_simulation_time
+        ax.set_title(f'Southern Sky View from Latitude {latitude_obs}°\nDate & Time: {current_datetime.strftime("%Y-%m-%d %H:%M:%S")}')
+
+        # Plot the positions of the planets at this frame
+        for planet in range(thetas_all_deg.shape[0]):
+            # Skip Earth since it's the reference point
+            if planet == 2:
+                continue
+
+            azimuth = adjusted_phis_all_deg[planet, frame]
+
+            # Focus on the southern sky (90° to 270° in right ascension)
+            if 90 <= azimuth <= 270:
+                # Calculate the altitude and azimuth
+                altitude = 90 - np.abs(latitude_obs - thetas_all_deg[planet, frame])
+                # Normalize azimuth to plot on the semi-circle
+                azimuth_normalized = np.cos(np.radians(azimuth))
+
+                # Plot the planet
+                ax.plot(azimuth_normalized, altitude / 90, 'o', color = dot_color[planet], label=f'{Planets[planet]}')
+
+        # Add a legend
+        ax.legend(loc='upper right')
+
+    # Create the animation
+    ani = animation.FuncAnimation(fig, update_plot_earth_rotation_adjusted, frames=len(time_steps), interval=100)
+
+    return ani
+
+# 이제 함수는 time_step_duration을 인자로 받습니다.
+# 함수를 사용할 때는 time_step_duration을 계산하여 전달해야 합니다.
+
+
+
+# Function to create an animation for fixed time observation focusing on the southern sky
+def create_animation_fixed_time(fig, ax, phis_all_deg, thetas_all_deg, midnight_frames, latitude_obs, start_date):
+    def update_plot_fixed_time(frame_idx):
+        frame = midnight_frames[frame_idx]
+        ax.clear()
+
+        # Recreate the semi-circle representing the sky
+        sky = patches.Circle((0, 0), 1, color='lightblue', alpha=0.3, clip_on=False)
+        ax.add_patch(sky)
+
+        # Set the limits and labels
+        ax.set_xlim(-1, 1)
+        ax.set_ylim(0, 1)
+        ax.set_xlabel('Azimuthal Angle (Degrees)')
+        ax.set_ylabel('Altitude')
+
+        # Calculate the current date in the simulation
+        current_simulation_date = start_date + timedelta(days=frame_idx)
+        ax.set_title(f'Southern Sky View from Latitude {latitude_obs}°\nDate: {current_simulation_date.strftime("%Y-%m-%d")}')
+
+        # Plot the positions of the planets at this frame
+        for planet in range(thetas_all_deg.shape[0]):
+            # Skip Earth since it's the reference point
+            if planet == 3:
+                continue
+
+            azimuth = phis_all_deg[planet, frame]
+
+            # Focus on the southern sky (90° to 270° in right ascension)
+            if 90 <= azimuth <= 270:
+                # Calculate the altitude and azimuth
+                altitude = 90 - np.abs(latitude_obs - thetas_all_deg[planet, frame])
+                # Normalize azimuth to plot on the semi-circle
+                azimuth_normalized = np.cos(np.radians(azimuth))
+
+                # Plot the planet
+                ax.plot(azimuth_normalized, altitude / 90, 'o', color = dot_color[planet], label=f'{Planets[planet]}')
+
+        # Add a legend
+        ax.legend(loc='upper right')
+
+    # Create the animation
+    ani = animation.FuncAnimation(fig, update_plot_fixed_time, frames=len(midnight_frames), interval=100)
+
+    return ani
+
+
+
+# Function to convert Cartesian coordinates to spherical coordinates
+def cartesian_to_spherical(x, y, z):
+    r = np.sqrt(x**2 + y**2 + z**2)
+    theta = np.arccos(z / r)  # polar angle
+    phi = np.arctan2(y, x)  # azimuthal angle
+    return r, theta, phi
+
+
+
+# Load the provided data files
+realX = np.load('realX.npy')
+realY = np.load('realY.npy')
+realZ = np.load('realZ.npy')
+
+# Earth is assumed to be at index 2
+earthX = realX[3]
+earthY = realY[3]
+earthZ = realZ[3]
+
+
+# Calculate the position of each planet relative to Earth
+relative_positions = np.array([realX - earthX, realY - earthY, realZ - earthZ])
+
+# Convert relative positions to spherical coordinates
+spherical_positions_all = np.zeros_like(relative_positions)
+for planet in range(relative_positions.shape[1]):
+    for time_step in range(relative_positions.shape[2]):
+        x, y, z = relative_positions[:, planet, time_step]
+        spherical_positions_all[:, planet, time_step] = cartesian_to_spherical(x, y, z)
+
+# Extracting radial distances, thetas (declinations), and phis (right ascensions)
+radial_distances_all, thetas_all, phis_all = spherical_positions_all
+
+# Convert thetas and phis to degrees
+thetas_all_deg = np.degrees(thetas_all)
+phis_all_deg = np.degrees(phis_all)
+
+# Define the latitude of observation and the start date of the simulation
+latitude_obs = 35
+start_date = datetime(2023, 10, 27)
+
+# 함수 사용 예시
+fig, ax = plt.subplots(figsize=(10, 5))
+plt.close(fig)  # 빈 초기 플롯을 표시하지 않기 위함
+
+# Calculate the real time duration of each time step (assuming one year of simulation)
+total_simulation_time = 365 * 24 * 60 * 60  # 1 year in seconds
+time_steps = np.arange(realX.shape[1])
+time_step_duration = total_simulation_time / len(time_steps)  # duration of each time step in seconds
+
+# Calculate the frame indices for fixed time observation (midnight of each day)
+frames_per_day = len(time_steps) / 365
+midnight_frames = np.round(np.arange(0, len(time_steps), frames_per_day)).astype(int)
+
+# Earth's rotation rate in degrees per hour (360 degrees per 24 hours)
+rotation_rate_per_hour = 360 / 24
+
+# Calculate the rotation angle for each time step
+rotation_angles = rotation_rate_per_hour * time_steps / (60 * 60)  # Converting time steps to hours
+
+# Adjust the right ascension for each planet at each time step
+adjusted_phis_all_deg = (phis_all_deg + rotation_angles[np.newaxis, :]) % 360
+
+# Checking a small sample for verification
+adjusted_phis_all_deg_sample = adjusted_phis_all_deg[:, :5]  # Sample first 5 time steps
+
+# Creating animations (functions defined earlier)
+fig_earth_rotation_adjusted, ax_earth_rotation_adjusted = plt.subplots(figsize=(10, 5))
+ani_earth_rotation_adjusted = create_animation_earth_rotation_adjusted(fig_earth_rotation_adjusted, ax_earth_rotation_adjusted, adjusted_phis_all_deg, thetas_all_deg, time_steps, latitude_obs, start_date)
+
+plt.show()
+plt.close(fig_earth_rotation_adjusted)
+
+fig_fixed_time, ax_fixed_time = plt.subplots(figsize=(10, 5))
+ani_fixed_time = create_animation_fixed_time(fig_fixed_time, ax_fixed_time, phis_all_deg, thetas_all_deg, midnight_frames, latitude_obs, start_date)
+
+plt.show()
+plt.close(fig_fixed_time)
+

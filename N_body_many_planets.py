@@ -4,7 +4,7 @@ from matplotlib import animation
 from mpl_toolkits.mplot3d import Axes3D
 import random
 from tqdm import tqdm
-import solar_system_test as sst
+# import solar_system_test as sst
 from decimal import Decimal
 from scipy.signal import find_peaks
 

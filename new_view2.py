@@ -160,6 +160,7 @@ def update_view(num, Qs, points_3d, lines_3d, points_xy, lines_xy, points_yz, li
     ax.set_xlim(center_x - window_size, center_x + window_size)
     ax.set_ylim(center_y - window_size, center_y + window_size)
     ax.set_zlim(center_z - window_size, center_z + window_size)
+    
 
 
 
@@ -167,9 +168,9 @@ def update_view(num, Qs, points_3d, lines_3d, points_xy, lines_xy, points_yz, li
 
 
 # Load the provided data files
-realX = np.load('realX.npy')
-realY = np.load('realY.npy')
-realZ = np.load('realZ.npy')
+realX = np.load('solar_system/realX.npy')
+realY = np.load('solar_system/realY.npy')
+realZ = np.load('solar_system/realZ.npy')
 
 # Earth is assumed to be at index 2
 earthX = realX[3]
@@ -257,6 +258,7 @@ min_z, max_z = -5, 5
 
 # 3D 플롯 초기화
 ax1 = fig2.add_subplot(1, 1, 1, projection='3d')
+ax1.view_init(90, 0)
 lines_3d = [ax1.plot([], [], [])[0] for _ in Q]
 points_3d = [ax1.scatter([], [], []) for _ in Q]
 
@@ -282,7 +284,7 @@ ani1 = animation.FuncAnimation(fig2, update_view, N, fargs=(Q, points_3d, lines_
                                                             points_3d_yz, lines_3d_yz,
                                                             points_3d_xz, lines_3d_xz,
                                                             max_x, max_y, max_z, ax1), interval=10, blit=False)
-# ani1.save('3d.gif', writer='imagemagick', fps=30)
+ani1.save('geocentric_theory.gif', writer='pillow', fps=30)
 
 
 # # XY 평면 정사영 초기화
@@ -317,6 +319,7 @@ plt.close(fig_fixed_time)
 # Creating animations (functions defined earlier)
 fig_earth_rotation_adjusted, ax_earth_rotation_adjusted = plt.subplots(figsize=(10, 5))
 ani_earth_rotation_adjusted = create_animation_earth_rotation_adjusted(fig_earth_rotation_adjusted, ax_earth_rotation_adjusted, adjusted_phis_all_deg, thetas_all_deg, time_steps, latitude_obs, start_date)
+
 
 plt.show()
 plt.close(fig_earth_rotation_adjusted)

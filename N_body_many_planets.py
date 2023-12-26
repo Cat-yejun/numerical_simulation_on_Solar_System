@@ -35,6 +35,8 @@ Jupiter_Mass = 1.8990e27
 Saturn_Mass = 5.6846e26
 Uranus_Mass = 8.6832e25
 Neptune_Mass = 1.02413e26
+Halley_Mass = 2.2e14
+
 '''
 Earth_Distance = 147.095e9
 Moon_Distance = 0.3633e9
@@ -61,31 +63,32 @@ Mercury_Distance = np.array([-4.703987873087203E+10, -4.985587674019647E+10, 1.8
 Venus_Distance = np.array([1.914974442429478E+10, 1.054540520595892E+11, 3.087171560114399E+08])
 Earth_Distance = np.array([1.235048684228280E+11, 8.058619176711780E+10, 2.667411721942574E+07])
 Mars_Distance = np.array([-1.693680602009911E+11, -1.633338577980754E+11, 7.405403565188572E+08])
-Jupiter_Distance = 740.595e9
-Saturn_Distance = 1357.554e9
-Uranus_Distance = 2732.696e9
-Neptune_Distance = 4471.050e9
+Jupiter_Distance = np.array([5.725700639437799E+11, 4.730073032787754E+11, -1.477236437996608E+10])
+Saturn_Distance = np.array([1.325682303669147E+12, -6.067535139923828E+11, -4.223183279553509E+10])
+Uranus_Distance =  np.array([1.864949122837932E+12, 2.265781669737323E+12, -1.574561477318978E+10])
+Neptune_Distance = np.array([4.461491670709415E+12, -2.994655957696397E+11, -9.665271751862276E+10])
+Halley_Distance =np.array([-2.972937565492319E+12, 4.072783671762008E+12, -1.489352333183844E+12])
 
 v_Sun = np.array([7.428554693822237E+00, -1.325062767284354E+01, -5.683154639431632E-02])
 v_Mercury = np.array([2.586175141125253E+04, -3.086574507092446E+04, -4.892822507154557E+03])
 v_Venus  = np.array([-3.449842112743277E+04, 6.438204184581872E+03, 2.079556029237196E+03])
 Earth_Velocity = np.array([-1.669144730584319E+04, 2.485046242521859E+04, -2.472963929220029E+00])
 v_Mars = np.array([1.777985310180871E+04, -1.533950275023832E+04, -7.572017049380761E+02])
-v_Jupiter = 13.72e3
-v_Saturn = 10.14e3
-v_Uranus = 7.13e3
-v_Neptune = 5.47e3
-
+v_Jupiter = np.array([-8.465851933861151E+03, 1.069303533649842E+04, 1.451499215878713E+02])
+v_Saturn = np.array([3.480159484383052E+03, 8.763331408213029E+03, -2.903505490903879E+02])
+v_Uranus =  np.array([-5.308120934585713E+03, 4.010484866563655E+03, 8.338063040766253E+01])
+v_Neptune = np.array([3.285238715176308E+02, 5.455530107868515E+03, -1.200729367002700E+02])
+v_Halley = np.array([7.097860487458852E+02, 5.588158316934020E+02, 1.018610223370180E+02])
 
 rs = Earth_Distance
 tz = (365*24*60*60)
 ts = (365*24*60*60)/tz
-print(Sun_Distance)
-print(Sun_Distance[0])
-print(Sun_Distance[1])
-print(Sun_Distance[2])
-Sun_x = Sun_Distance[0]/rs
-print(Sun_x)
+# print(Sun_Distance)
+# print(Sun_Distance[0])
+# print(Sun_Distance[1])
+# print(Sun_Distance[2])
+# Sun_x = Sun_Distance[0]/rs
+# print(Sun_x)
 
 #G = 1
 
@@ -113,11 +116,27 @@ particle = [[Sun_Mass, 0, 0, 0, 0, 0, 0],
 # vi7 = v_Uranus*(tz/rs)
 # vi8 = v_Neptune*(tz/rs)
 
+# particle = [[Sun_Mass, Sun_Distance[0]/rs, Sun_Distance[1]/rs, Sun_Distance[2]/rs, v_Sun[0]*(tz/rs), v_Sun[1]*(tz/rs), v_Sun[2]*(tz/rs)],
+#             [Mercury_Mass, Mercury_Distance[0]/rs, Mercury_Distance[1]/rs, Mercury_Distance[2]/rs, v_Mercury[0]*(tz/rs), v_Mercury[1]*(tz/rs), v_Mercury[2]*(tz/rs)],
+#             [Venus_Mass, Venus_Distance[0]/rs, Venus_Distance[1]/rs, Venus_Distance[2]/rs, v_Venus[0]*(tz/rs), v_Venus[1]*(tz/rs), v_Venus[2]*(tz/rs)],
+#             [Earth_Mass, Earth_Distance[0]/rs, Earth_Distance[1]/rs, Earth_Distance[2]/rs, Earth_Velocity[0]*(tz/rs), Earth_Velocity[1]*(tz/rs), Earth_Velocity[2]*(tz/rs)],
+#             [Mars_Mass, Mars_Distance[0]/rs, Mars_Distance[1]/rs, Mars_Distance[2]/rs, v_Mars[0]*(tz/rs), v_Mars[1]*(tz/rs), v_Mars[2]*(tz/rs)],
+#             [Jupiter_Mass, Jupiter_Distance[0]/rs, Jupiter_Distance[1]/rs, Jupiter_Distance[2]/rs, v_Jupiter[0]*(tz/rs), v_Jupiter[1]*(tz/rs), v_Jupiter[2]*(tz/rs)],
+#             [Saturn_Mass, Saturn_Distance[0]/rs, Saturn_Distance[1]/rs, Saturn_Distance[2]/rs, v_Saturn[0]*(tz/rs), v_Saturn[1]*(tz/rs), v_Saturn[2]*(tz/rs)],
+#             [Uranus_Mass, Uranus_Distance[0]/rs, Uranus_Distance[1]/rs, Uranus_Distance[2]/rs, v_Uranus[0]*(tz/rs), v_Uranus[1]*(tz/rs), v_Uranus[2]*(tz/rs)],
+#             [Neptune_Mass, Neptune_Distance[0]/rs, Neptune_Distance[1]/rs, Neptune_Distance[2]/rs, v_Neptune[0]*(tz/rs), v_Neptune[1]*(tz/rs), v_Neptune[2]*(tz/rs)],
+#             [Halley_Mass, Halley_Distance[0]/rs, Halley_Distance[1]/rs, Halley_Distance[2]/rs, v_Halley[0]*(tz/rs), v_Halley[1]*(tz/rs), v_Halley[2]*(tz/rs)]]
+
 particle = [[Sun_Mass, Sun_Distance[0]/rs, Sun_Distance[1]/rs, Sun_Distance[2]/rs, v_Sun[0]*(tz/rs), v_Sun[1]*(tz/rs), v_Sun[2]*(tz/rs)],
             [Mercury_Mass, Mercury_Distance[0]/rs, Mercury_Distance[1]/rs, Mercury_Distance[2]/rs, v_Mercury[0]*(tz/rs), v_Mercury[1]*(tz/rs), v_Mercury[2]*(tz/rs)],
             [Venus_Mass, Venus_Distance[0]/rs, Venus_Distance[1]/rs, Venus_Distance[2]/rs, v_Venus[0]*(tz/rs), v_Venus[1]*(tz/rs), v_Venus[2]*(tz/rs)],
             [Earth_Mass, Earth_Distance[0]/rs, Earth_Distance[1]/rs, Earth_Distance[2]/rs, Earth_Velocity[0]*(tz/rs), Earth_Velocity[1]*(tz/rs), Earth_Velocity[2]*(tz/rs)],
-            [Mars_Mass, Mars_Distance[0]/rs, Mars_Distance[1]/rs, Mars_Distance[2]/rs, v_Mars[0]*(tz/rs), v_Mars[1]*(tz/rs), v_Mars[2]*(tz/rs)]]
+            [Mars_Mass, Mars_Distance[0]/rs, Mars_Distance[1]/rs, Mars_Distance[2]/rs, v_Mars[0]*(tz/rs), v_Mars[1]*(tz/rs), v_Mars[2]*(tz/rs)],
+            [Jupiter_Mass, Jupiter_Distance[0]/rs, Jupiter_Distance[1]/rs, Jupiter_Distance[2]/rs, v_Jupiter[0]*(tz/rs), v_Jupiter[1]*(tz/rs), v_Jupiter[2]*(tz/rs)],
+            [Saturn_Mass, Saturn_Distance[0]/rs, Saturn_Distance[1]/rs, Saturn_Distance[2]/rs, v_Saturn[0]*(tz/rs), v_Saturn[1]*(tz/rs), v_Saturn[2]*(tz/rs)],
+            [Uranus_Mass, Uranus_Distance[0]/rs, Uranus_Distance[1]/rs, Uranus_Distance[2]/rs, v_Uranus[0]*(tz/rs), v_Uranus[1]*(tz/rs), v_Uranus[2]*(tz/rs)],
+            [Neptune_Mass, Neptune_Distance[0]/rs, Neptune_Distance[1]/rs, Neptune_Distance[2]/rs, v_Neptune[0]*(tz/rs), v_Neptune[1]*(tz/rs), v_Neptune[2]*(tz/rs)]]
+
 
 
 # print(vi)
@@ -296,17 +315,17 @@ def rungekutta_method(particle, t0, t1, h):
         #prevDay = ((i-1)*h*tz)/(24*60*60)
         #days = (day + prevDay)/2
         
-        for z in range(len(particle)):
-            if(particle[z][YCOOR]<0):
-                minus[z] = True
+        # for z in range(len(particle)):
+        #     if(particle[z][YCOOR]<0):
+        #         minus[z] = True
                     
-            if(minus[z] == True):
-                if(day>0 and flag[z]==True):
-                    if(yf[z]>0):
-                        #print(planet, ':', round(days, 3), 'days', end = ' / true value : ')
-                        #print(planet, ':', day, 'days')
-                        observation[z] = day
-                        flag[z] = False
+        #     if(minus[z] == True):
+        #         if(day>0 and flag[z]==True):
+        #             if(yf[z]>0):
+        #                 #print(planet, ':', round(days, 3), 'days', end = ' / true value : ')
+        #                 #print(planet, ':', day, 'days')
+        #                 observation[z] = day
+        #                 flag[z] = False
 
     return np.array(ts), np.array(xs), np.array(ys), np.array(zs), np.array(vxs), np.array(vys), np.array(vzs), observation
 

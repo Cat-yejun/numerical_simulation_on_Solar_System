@@ -77,7 +77,7 @@ def create_animation_fixed_time(fig, ax, phis_all_deg, thetas_all_deg, midnight_
 
         # Calculate the current date in the simulation
         current_simulation_date = start_date + timedelta(days=frame_idx)
-        ax.set_title(f'Southern Sky View from Latitude {latitude_obs}°\nDate: {current_simulation_date.strftime("%Y-%m-%d")}')
+        ax.set_title(f'Sky View \nDate: {current_simulation_date.strftime("%Y-%m-%d")}')
 
         # Plot the positions of the planets at this frame
         for planet in range(thetas_all_deg.shape[0]):
@@ -166,9 +166,9 @@ def update_view(num, Qs, points_3d, lines_3d, points_xy, lines_xy, points_yz, li
 
 
 # Load the provided data files
-realX = np.load('realX.npy')
-realY = np.load('realY.npy')
-realZ = np.load('realZ.npy')
+realX = np.load('solar_system/realX.npy')
+realY = np.load('solar_system/realY.npy')
+realZ = np.load('solar_system/realZ.npy')
 
 # Earth is assumed to be at index 2
 earthX = realX[3]
@@ -287,10 +287,13 @@ ani1 = animation.FuncAnimation(fig2, update_view, N, fargs=(Q, points_3d, lines_
 ax2 = fig2.add_subplot(2, 2, 2)
 
 
-
+plt.show()
+plt.close(fig2)
 
 fig_fixed_time, ax_fixed_time = plt.subplots(figsize=(10, 5))
-ani_fixed_time = create_animation_fixed_time(fig2, ax2, phis_all_deg, thetas_all_deg, midnight_frames, latitude_obs, start_date)
+ani_fixed_time = create_animation_fixed_time(fig_fixed_time, ax_fixed_time, phis_all_deg, thetas_all_deg, midnight_frames, latitude_obs, start_date)
+
+ani_fixed_time.save('animation_fixed_time.gif', writer='pillow', fps=30)
 
 plt.show()
 plt.close(fig_fixed_time)

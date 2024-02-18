@@ -27,7 +27,7 @@ AU = 1.495978707e11
 
 Sun_Mass = 1.9889e30
 Earth_Mass = 5.9722e24
-Moon_Mass = 0.07346e24
+Moon_Mass = 7.349e22
 Mercury_Mass = 3.2850e23
 Venus_Mass = 4.8670e24
 Mars_Mass = 0.64169e24
@@ -58,29 +58,31 @@ v_Saturn = 10.14e3
 v_Uranus = 7.13e3
 v_Neptune = 5.47e3
 '''
-Sun_Distance = np.array([-1.237420243922744E+09, -3.621185617520688E+08, 3.185717976525464E+07])
-Mercury_Distance = np.array([-4.703987873087203E+10, -4.985587674019647E+10, 1.883743797567040E+08])
-Venus_Distance = np.array([1.914974442429478E+10, 1.054540520595892E+11, 3.087171560114399E+08])
-Earth_Distance = np.array([1.235048684228280E+11, 8.058619176711780E+10, 2.667411721942574E+07])
-Mars_Distance = np.array([-1.693680602009911E+11, -1.633338577980754E+11, 7.405403565188572E+08])
-Jupiter_Distance = np.array([5.725700639437799E+11, 4.730073032787754E+11, -1.477236437996608E+10])
-Saturn_Distance = np.array([1.325682303669147E+12, -6.067535139923828E+11, -4.223183279553509E+10])
-Uranus_Distance =  np.array([1.864949122837932E+12, 2.265781669737323E+12, -1.574561477318978E+10])
-Neptune_Distance = np.array([4.461491670709415E+12, -2.994655957696397E+11, -9.665271751862276E+10])
-Halley_Distance =np.array([-2.972937565492319E+12, 4.072783671762008E+12, -1.489352333183844E+12])
+Sun_Distance = np.array([-1.071744732955535E+09, 8.265357172182539E+08, 1.827580634990131E+07]) #
+Mercury_Distance = np.array([3.390662651858164E+09, -6.785161511079584E+10, -6.003201630573049E+09]) #
+Venus_Distance = np.array([1.071543418279953E+11, -7.566748993776649E+09, -6.342138557300097E+09]) #
+Earth_Distance = np.array([-1.500298801698535E+11, 2.608520190927167E+09, 1.864201840848848E+07]) #
+Mars_Distance = np.array([-6.170266366296435E+10, 2.328475976410813E+11, 6.367819636799917E+09]) #
+Jupiter_Distance = np.array([5.203174573090805E+11, -5.499326664750028E+11, -9.359433885043085E+09]) #
+Saturn_Distance = np.array([8.703453701521429E+11, -1.210327783184330E+12, -1.360577025725293E+10]) #
+Uranus_Distance =  np.array([2.265791707408811E+12, 1.898387756505655E+12, -2.230305557915759E+10]) #
+Neptune_Distance = np.array([4.412244421913362E+12, -7.454620468766884E+11, -8.633305512793803E+10]) #
+Halley_Distance = np.array([-2.972937565492319E+12, 4.072783671762008E+12, -1.489352333183844E+12])
+Moon_Distance = np.array([-1.499026167607415E+11, 2.991337822189607E+09, 1.753553103512758E+07]) #
 
-v_Sun = np.array([7.428554693822237E+00, -1.325062767284354E+01, -5.683154639431632E-02])
-v_Mercury = np.array([2.586175141125253E+04, -3.086574507092446E+04, -4.892822507154557E+03])
-v_Venus  = np.array([-3.449842112743277E+04, 6.438204184581872E+03, 2.079556029237196E+03])
-Earth_Velocity = np.array([-1.669144730584319E+04, 2.485046242521859E+04, -2.472963929220029E+00])
-v_Mars = np.array([1.777985310180871E+04, -1.533950275023832E+04, -7.572017049380761E+02])
-v_Jupiter = np.array([-8.465851933861151E+03, 1.069303533649842E+04, 1.451499215878713E+02])
-v_Saturn = np.array([3.480159484383052E+03, 8.763331408213029E+03, -2.903505490903879E+02])
-v_Uranus =  np.array([-5.308120934585713E+03, 4.010484866563655E+03, 8.338063040766253E+01])
-v_Neptune = np.array([3.285238715176308E+02, 5.455530107868515E+03, -1.200729367002700E+02])
+v_Sun = np.array([-1.085082627994050E+01, -1.125456057100236E+01, 3.513715314250373E-01]) #
+v_Mercury = np.array([3.882944237115451E+04, 5.648361640922683E+03, -3.100009521428335E+03]) #
+v_Venus  = np.array([2.539001605442623E+03, 3.474387448880036E+04, 3.301773297834352E+02]) #
+Earth_Velocity = np.array([-8.425020834612558E+02, -2.991321161864315E+04, 7.264813289324934E-01]) #
+v_Mars = np.array([-2.253700588660107E+04, -4.080236253694372E+03, 4.676627209476263E+02]) #
+v_Jupiter = np.array([9.328973572870076E+03, 9.598019469063308E+03, -2.485335398670885E+02]) #
+v_Saturn = np.array([7.304282864831359E+03, 5.617062466050720E+03, -3.888472136263323E+02]) #
+v_Uranus =  np.array([-4.423420673270083E+03, 4.902676218257462E+03, 7.558195334851581E+01]) #
+v_Neptune = np.array([8.696321070656642E+02, 5.391552914473834E+03, -1.312500173042375E+02]) #
 v_Halley = np.array([7.097860487458852E+02, 5.588158316934020E+02, 1.018610223370180E+02])
+v_Moon = np.array([-1.766084859545970E+03, -2.963144348203108E+04, 8.632109316705616E+01]) #
 
-rs = Earth_Distance
+rs = AU*1e-4
 tz = (365*24*60*60)
 ts = (365*24*60*60)/tz
 # print(Sun_Distance)
@@ -131,6 +133,7 @@ particle = [[Sun_Mass, Sun_Distance[0]/rs, Sun_Distance[1]/rs, Sun_Distance[2]/r
             [Mercury_Mass, Mercury_Distance[0]/rs, Mercury_Distance[1]/rs, Mercury_Distance[2]/rs, v_Mercury[0]*(tz/rs), v_Mercury[1]*(tz/rs), v_Mercury[2]*(tz/rs)],
             [Venus_Mass, Venus_Distance[0]/rs, Venus_Distance[1]/rs, Venus_Distance[2]/rs, v_Venus[0]*(tz/rs), v_Venus[1]*(tz/rs), v_Venus[2]*(tz/rs)],
             [Earth_Mass, Earth_Distance[0]/rs, Earth_Distance[1]/rs, Earth_Distance[2]/rs, Earth_Velocity[0]*(tz/rs), Earth_Velocity[1]*(tz/rs), Earth_Velocity[2]*(tz/rs)],
+            [Moon_Mass, Moon_Distance[0]/rs, Moon_Distance[1]/rs, Moon_Distance[2]/rs, v_Moon[0]*(tz/rs), v_Moon[1]*(tz/rs), v_Moon[2]*(tz/rs)],
             [Mars_Mass, Mars_Distance[0]/rs, Mars_Distance[1]/rs, Mars_Distance[2]/rs, v_Mars[0]*(tz/rs), v_Mars[1]*(tz/rs), v_Mars[2]*(tz/rs)],
             [Jupiter_Mass, Jupiter_Distance[0]/rs, Jupiter_Distance[1]/rs, Jupiter_Distance[2]/rs, v_Jupiter[0]*(tz/rs), v_Jupiter[1]*(tz/rs), v_Jupiter[2]*(tz/rs)],
             [Saturn_Mass, Saturn_Distance[0]/rs, Saturn_Distance[1]/rs, Saturn_Distance[2]/rs, v_Saturn[0]*(tz/rs), v_Saturn[1]*(tz/rs), v_Saturn[2]*(tz/rs)],
@@ -438,7 +441,7 @@ if __name__ == '__main__':
 
     initialTime = ts
     finalTime = ts + 1
-    interval = 0.0001
+    interval = 0.00001
 
     Numbers = int((finalTime - initialTime) / interval)
     
@@ -458,14 +461,14 @@ if __name__ == '__main__':
     
     Q = [[] for i in range(len(particle))]
 
-    T, realX, realY, realZ, VX, VY, VZ, obsVal = rungekutta_method(particle, initialTime, initialTime + 5, interval)
+    T, realX, realY, realZ, VX, VY, VZ, obsVal = rungekutta_method(particle, initialTime, initialTime + 2, interval)
     
     np.save('realX.npy', realX)
     np.save('realY.npy', realY)
     np.save('realZ.npy', realZ)
         
     
-    print(obsVal)
+    # print(obsVal)
 
     # print(sum(realZ[1])/len(realZ[1]))
 

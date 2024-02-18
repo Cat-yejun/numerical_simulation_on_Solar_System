@@ -9,16 +9,16 @@ from scipy import interpolate
 from astropy.coordinates import SkyCoord
 import astropy.units as u
 
-Planets = ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']
+Planets = ['Sun', 'Mercury', 'Venus', 'Earth', 'moon', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']
 
 
 def update_view(num, Qs, points_3d, lines_3d, points_xy, lines_xy, points_yz, lines_yz, points_xz, lines_xz, max_x, max_y, max_z, ax):
-    # Sun_x_offset = Qs[0][num, 0]
-    # Sun_y_offset = Qs[0][num, 1]
-    # Sun_z_offset = Qs[0][num, 2]
-    Sun_x_offset = 0
-    Sun_y_offset = 0
-    Sun_z_offset = 0
+    Sun_x_offset = Qs[3][num, 0]
+    Sun_y_offset = Qs[3][num, 1]
+    Sun_z_offset = Qs[3][num, 2]
+    # Sun_x_offset = 0
+    # Sun_y_offset = 0
+    # Sun_z_offset = 0
 
     for i in range(len(Qs)):
         Qs[i][:, 0] -= Sun_x_offset 
@@ -53,7 +53,7 @@ def update_view(num, Qs, points_3d, lines_3d, points_xy, lines_xy, points_yz, li
     center_x = 0  # 이제 Earth가 항상 (0,0)에 있기 때문에 중심 좌표는 0,0입니다.
     center_y = 0
     center_z = 0
-    window_size = 5 # 이 값을 조절하여 원하는 범위를 설정할 수 있습니다.
+    window_size = 0.01 # 이 값을 조절하여 원하는 범위를 설정할 수 있습니다.
     
     ax.set_xlim(center_x - window_size, center_x + window_size)
     ax.set_ylim(center_y - window_size, center_y + window_size)
@@ -136,9 +136,9 @@ Z = [[0 for j in range(Numbers)] for i in range(len(particle))]
 
 Q = [[] for i in range(len(particle))]
 
-realX = np.load('solar_system/realX.npy')
-realY = np.load('solar_system/realY.npy')
-realZ = np.load('solar_system/realZ.npy')
+realX = np.load('moon/realX.npy')
+realY = np.load('moon/realY.npy')
+realZ = np.load('moon/realZ.npy')
 
 
 # R=[]
@@ -216,6 +216,8 @@ for i in range(len(particle)):
     Z[i] = realZ[i][::frameRate]
 
     Q[i] = np.dstack((X[i], Y[i], Z[i]))[0]
+
+# print(X)
 
 N = len(X[0])
 
@@ -379,7 +381,7 @@ ax7.w_yaxis.set_ticklabels([])
 ani7 = animation.FuncAnimation(fig, update_3d_general, N, fargs=(Q, points_3d_view_xz, lines_3d_view_xz), interval=1, blit=False)
 '''
 
-ani1.save('3d.gif', writer='pillow', fps=30)
+# ani1.save('3d.gif', writer='pillow', fps=30)
 #ani2.save('xy.gif', writer='pillow', fps=30)
 
 plt.show()

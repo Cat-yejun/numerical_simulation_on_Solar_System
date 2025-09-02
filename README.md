@@ -14,17 +14,17 @@
 
 -   **Runge--Kutta Integration (RK4)**
     -   Implements RK4~8th order to integrate positions and velocities under
-        Newtonian gravity.\
+        Newtonian gravity.
 -   **N-body Simulation**
     -   Models Sun, planets (Mercury → Neptune), and the Moon with
-        initial conditions.\
+        initial conditions.
 -   **Realistic Initial Conditions**
     -   Positions and velocities are initialized based on astronomical
-        data. (Data Source: NASA JPL)\
+        data. (Data Source: NASA JPL)
 -   **Matplotlib Animations**
-    -   Renders real-time or saved animations of 3D trajectories.\
+    -   Renders real-time or saved animations of 3D trajectories.
     -   Supports multiple views: 3D orbit, XY-plane, YZ-plane, XZ-plane
-        projections.\
+        projections.
 -   **Data Export**
     -   Saves computed positions into `.npy` files (`realX.npy`,
         `realY.npy`, `realZ.npy`) for reuse in other visualization
@@ -36,9 +36,9 @@
 
 -   Python 3.8+
 -   Libraries:
-    -   numpy\
-    -   matplotlib\
-    -   tqdm\
+    -   numpy
+    -   matplotlib
+    -   tqdm
     -   scipy
 
 ------------------------------------------------------------------------
@@ -60,7 +60,7 @@ This will:\
 
 ## 🖼️ Example Output
 
-### Using 4th~8th order Runge-Kutta method
+### 3 dimensional trajectories
 ![3d](https://github.com/user-attachments/assets/ebe80174-5c4f-4296-9e90-a927cefcc5fa)
 
 ### Geocentric view of the Solar system
